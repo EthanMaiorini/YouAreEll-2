@@ -1,8 +1,10 @@
 package youareell;
 
 import controllers.*;
+import models.Id;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class YouAreEll {
 
@@ -13,8 +15,14 @@ public class YouAreEll {
     }
 
     public static void main(String[] args) throws IOException {
+
         ServerController serverController = ServerController.shared();
-        serverController.idGet();
+        //serverController.idGet("/ids");
+        serverController.idGet("/messages");
+//        ArrayList<Id> idc = IdController.getIds();
+//        for(Id id : idc){
+//           System.out.println(id.toString());
+//      }
         // hmm: is this Dependency Injection?
 //        YouAreEll urlhandler = new YouAreEll(
 //            new TransactionController(new MessageController(), new IdController()));

@@ -4,6 +4,7 @@ package controllers;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.json.ReaderBasedJsonParser;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.css.ElementCSSInlineStyle;
@@ -16,7 +17,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class ServerController<JsonString> {
+public class ServerController{
     private String rootURL = "http://zipcode.rocks:8085";
 
     private static ServerController svr = new ServerController();
@@ -27,14 +28,14 @@ public class ServerController<JsonString> {
         return svr;
     }
 
-    public JsonString idGet()  {
+    public JSONArray idGet(String action) {
         BufferedReader reader = null;
         String line = "";
         StringBuffer responseContent = new StringBuffer();
         JSONParser jsonParser = new JSONParser();
         URL url = null;
         try {
-            url = new URL(rootURL+"/ids");
+            url = new URL(rootURL + action);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -59,22 +60,23 @@ public class ServerController<JsonString> {
             e.printStackTrace();
         }
         System.out.println(status);
-        if (status>299){
+        JSONArray ids = null;
+        if (status > 299) {
             reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
             try {
                 line = reader.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            while(line != null){
+            while (line != null) {
                 responseContent.append(line);
             }
-        }else {
+        } else {
             try {
                 reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 Object obj = jsonParser.parse(reader);
-
-                line = reader.readLine();
+                ids = (JSONArray) obj;
+                System.out.println(ids);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
@@ -95,7 +97,7 @@ public class ServerController<JsonString> {
             e.printStackTrace();
         }
         connection.disconnect();
-        return null;
+        return ids;
     }
 //    public JsonString idPost(Id) {
 //        // url -> /ids/

@@ -10,8 +10,14 @@ public class IdController {
 
     Id myId;
 
-    public ArrayList<Id> getIds() {
-        return null;
+    public static ArrayList<Id> getIds() {
+        ArrayList<Id> ids = new ArrayList<>();
+        ServerController serverController = ServerController.shared();
+        ids.addAll(serverController.idGet("/ids"));
+//        for(Id id : ids){
+//            System.out.println(id.toString());
+//        }
+        return ids;
     }
 
     public Id postId(Id id) {

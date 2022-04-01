@@ -12,6 +12,9 @@ public class MessageController {
     // why a HashSet??
 
     public ArrayList<Message> getMessages() {
+        ServerController serverController = ServerController.shared();
+       // serverController.idGet("/ids");
+        serverController.idGet("/messages");
         return null;
     }
     public ArrayList<Message> getMessagesForId(Id Id) {

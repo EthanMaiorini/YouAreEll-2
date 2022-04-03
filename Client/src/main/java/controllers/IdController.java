@@ -13,7 +13,7 @@ public class IdController {
     public static ArrayList<Id> getIds() {
         ArrayList<Id> ids = new ArrayList<>();
         ServerController serverController = ServerController.shared();
-        ids.addAll(serverController.idGet("/ids"));
+       // ids.addAll(serverController.idGet("/ids"));
 //        for(Id id : ids){
 //            System.out.println(id.toString());
 //        }

@@ -18,7 +18,7 @@ public class YouAreEll {
 
         ServerController serverController = ServerController.shared();
         //serverController.idGet("/ids");
-        serverController.idGet("/messages");
+       serverController.idGet("/messages");
 //        ArrayList<Id> idc = IdController.getIds();
 //        for(Id id : idc){
 //           System.out.println(id.toString());

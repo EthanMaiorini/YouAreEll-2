@@ -1,27 +1,46 @@
 package controllers;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import models.Id;
 import models.Message;
 
 public class MessageController {
 
-    private HashSet<Message> messagesSeen;
+    private HashSet<Message> messagesSeen = new HashSet<Message>();
+    private final ServerController serverController = ServerController.shared();
     // why a HashSet??
 
     public ArrayList<Message> getMessages() throws IOException {
-        ServerController serverController = ServerController.shared();
-       serverController.idGet("/ids");
-       // serverController.idGet("/messages");
+        //String messageString = String.valueOf(serverController.get());
+        ObjectMapper objectMapper = new ObjectMapper();
+        messagesSeen = objectMapper.readValue(new URL("http://zipcode.rocks:8085/messages"),new TypeReference<>(){});
+        messagesSeen.forEach(System.out::println);
         return null;
     }
+
     public ArrayList<Message> getMessagesForId(Id Id) {
-        return null;
+        ArrayList<Message> toMess = new ArrayList<>();
+       for(Message m : messagesSeen){
+            if(m.getToId().equals(Id.toString())){
+                toMess.add(m);
+            }
+        }
+        Message m = null;
+        //messagesSeen.forEach((m.equals(Id.toString()))::(toMess.add(m)));
+        return toMess;
     }
+
     public Message getMessageForSequence(String seq) {
         return null;
     }

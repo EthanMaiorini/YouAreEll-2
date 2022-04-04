@@ -14,20 +14,30 @@ public class YouAreEll {
         this.tt = t;
     }
 
-    public static void main(String[] args) throws IOException {
+    public YouAreEll(MessageController messageController, IdController idController) {
+        tt = new TransactionController(messageController, idController);
+    }
 
-        ServerController serverController = ServerController.shared();
+    public static void main(String[] args) throws IOException {
+        Id myId;
+        MessageController messages = new MessageController();
+        messages.getMessages();
+        IdController ids = new IdController();
+        ArrayList<Id> idc = ids.getIds();
+        //ServerController serverController = ServerController.shared();
         //serverController.idGet("/ids");
-       serverController.idGet("/messages");
-//        ArrayList<Id> idc = IdController.getIds();
-//        for(Id id : idc){
-//           System.out.println(id.toString());
-//      }
-        // hmm: is this Dependency Injection?
-//        YouAreEll urlhandler = new YouAreEll(
-//            new TransactionController(new MessageController(), new IdController()));
-//        System.out.println(urlhandler.MakeURLCall("/ids", "GET", ""));
-//        System.out.println(urlhandler.MakeURLCall("/messages", "GET", ""));
+       //serverController.idGet("/messages");
+        //ArrayList<Id> idc = IdController.getIds();
+        for(Id id : idc){
+           System.out.println(id.toString());
+      }
+       //  hmm: is this Dependency Injection?
+        YouAreEll urlhandler = new YouAreEll(
+            new TransactionController(new MessageController(), new IdController()));
+        myId = ids.postId(new Id());
+
+       // System.out.println(urlhandler.MakeURLCall("/ids", "GET", ""));
+      //  System.out.println(urlhandler.MakeURLCall("/messages", "GET", ""));
     }
 
 //    public String get_ids() {
@@ -38,5 +48,7 @@ public class YouAreEll {
 //        return MakeURLCall("/messages", "GET", "");
 //    }
 //
-
+//    public String MakeURLCall(String info){
+//
+//    }
 }

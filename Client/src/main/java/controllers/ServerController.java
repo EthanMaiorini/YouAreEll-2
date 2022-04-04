@@ -8,14 +8,13 @@ import com.fasterxml.jackson.core.json.ReaderBasedJsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import models.Id;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.css.ElementCSSInlineStyle;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -40,17 +39,23 @@ public class ServerController{
         return null;
     }
 
-//    public JsonString idPost(Id) {
-//        // url -> /ids/
-//        // create json from Id
-//        // request
-//        // reply
-//        // return json
-//    }
+    public JsonString idPost(Id id) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        URL connection = new URL("http://zipcode.rocks:8085/ids");
+        String out = objectMapper.writeValue(,id);
+
+        // url -> /ids/
+        // create json from Id
+        // request
+        // reply
+        // return json
+        return null;
+    }
+
 //    public JsonString idPut(Id) {
 //        // url -> /ids/
 //    }
-//
+
 
 }
 

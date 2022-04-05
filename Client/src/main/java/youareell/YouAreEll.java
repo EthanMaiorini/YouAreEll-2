@@ -2,6 +2,7 @@ package youareell;
 
 import controllers.*;
 import models.Id;
+import models.Message;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +36,9 @@ public class YouAreEll {
         YouAreEll urlhandler = new YouAreEll(
             new TransactionController(new MessageController(), new IdController()));
         myId = ids.postId(new Id());
-
+        Message message = new Message();
+        String mess = String.valueOf(messages.postMessage(myId));
+        System.out.println(mess);
        // System.out.println(urlhandler.MakeURLCall("/ids", "GET", ""));
       //  System.out.println(urlhandler.MakeURLCall("/messages", "GET", ""));
     }

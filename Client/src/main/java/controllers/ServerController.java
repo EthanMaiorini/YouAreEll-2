@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import models.Id;
+import models.Message;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -19,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class ServerController{
     private String rootURL = "http://zipcode.rocks:8085";
@@ -39,23 +41,70 @@ public class ServerController{
         return null;
     }
 
-    public JsonString idPost(Id id) throws IOException {
+    public String idPost(Id id) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        URL connection = new URL("http://zipcode.rocks:8085/ids");
-        String out = objectMapper.writeValue(,id);
+        URL url = new URL("http://zipcode.rocks:8085/ids");
+        //String out = objectMapper.writeValue(,id);
 
         // url -> /ids/
         // create json from Id
         // request
         // reply
         // return json
-        return null;
+        StringBuilder response = null;
+        try {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            String out = objectMapper.writeValueAsString(id);
+            OutputStream os = connection.getOutputStream();
+            //byte[] input = ;
+            os.write(out.getBytes(StandardCharsets.UTF_8));
+            int code = connection.getResponseCode();
+            System.out.println(code);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//
+        return " ";
+//        // url -> /ids/
+//        // create json from Id
+//        // request
+//        // reply
+//        // return json
     }
+
 
 //    public JsonString idPut(Id) {
 //        // url -> /ids/
 //    }
+public String messagePost(Message message, String sourceId) throws IOException {
+    StringBuilder response = null;
+    //URL url = new URL(rootURL+"/ids/"+ sourceId + "/messages");
+    URL url = new URL("http://zipcode.rocks:8085/ids/EthanMaiorini/messages");
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    try {
+        //connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String out = objectMapper.writeValueAsString(message);
+        OutputStream os = connection.getOutputStream();
+        os.write(out.getBytes(StandardCharsets.UTF_8));
+        int code = connection.getResponseCode();
+        System.out.println(code);
 
+    } catch (ProtocolException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+//
+    return " ";
+//    public JsonString idPut(Id) {
+//        // url -> /ids/
+//    }
+}
 
 }
 

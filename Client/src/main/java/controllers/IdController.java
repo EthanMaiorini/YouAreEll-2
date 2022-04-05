@@ -33,8 +33,9 @@ public class IdController {
         return ids;
     }
 
-    public Id postId(Id id) {
-        id = new Id("Ethan","EthanMaiorini");
+    public Id postId(Id id) throws IOException {
+        id.setName("Ethan");
+        id.setGithub("EthanMaiorini");
         ServerController.shared().idPost(id);
         // create json from id
         // call server, get json result Or error

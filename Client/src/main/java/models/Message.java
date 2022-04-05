@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
@@ -17,13 +18,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Message implements Comparable {
 
-    @JsonProperty ("message")
     private String message = "";
     @JsonProperty ("toid")
-    private String toId = "";
+    private String toId = " ";
     @JsonProperty ("fromid")
     private String fromId = "";
-    @JsonProperty ("timestamp")
     private String timestamp = "";
     @JsonProperty ("sequence")
     private String seqId = "";

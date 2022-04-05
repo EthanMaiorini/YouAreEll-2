@@ -48,8 +48,13 @@ public class MessageController {
         return null;
     }
 
-    public Message postMessage(Id myId, Id toId, Message msg) {
-        return null;
+    public Message postMessage(Id myId) throws IOException {
+          Message msg = new Message("Hello there", myId.getGithub(), "-");
+//        msg.setMessage("Hello there");
+//        msg.setToId("EthanMaiorini");
+//        msg.setFromId("-");
+        ServerController.shared().messagePost(msg, myId.getGithub() );
+        return msg;
     }
  
 }
